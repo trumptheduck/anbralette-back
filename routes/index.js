@@ -1,6 +1,5 @@
 const router = require('express').Router();
 
-router.use('/api/user', require('./api/user'));
-router.use('/api/service', require('./api/service'));
+router.use('/apis', require('./apis/item.js'));
 
 module.exports = router;
