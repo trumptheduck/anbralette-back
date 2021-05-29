@@ -8,7 +8,7 @@ const indexRoutes = require("./routes/index.js")
 const cors = require("cors")
 
 
-mongoose.connect('mongodb+srv://admin:admin@datacluster.xjitt.mongodb.net/anbralette?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb+srv://admin:admin@datacluster.xjitt.mongodb.net/anbralette?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
 
 ///////////////////////////////////////////////////////////////
 app.use(express.urlencoded({ extended: true }));
