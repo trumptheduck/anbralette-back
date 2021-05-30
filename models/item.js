@@ -24,5 +24,4 @@ itemSchema.methods.updateData = function (data) {
     this.discount = data.discount;
     this.save()
 }
-
 module.exports = mongoose.model("Item", itemSchema);

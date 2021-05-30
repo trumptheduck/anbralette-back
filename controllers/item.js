@@ -24,8 +24,8 @@ exports.getItemById = async (req, res) => {
 exports.createItem = async (req, res) => {
     console.log(req.body)
     try {
-        var images = JSON.parse(req.body.images);
-        var sizes = JSON.parse(req.body.sizes);
+        var images = req.body.images;
+        var sizes = req.body.sizes;
         const item = new Item({
             item_id: req.body.item_id,
             name:  req.body.name,
@@ -47,9 +47,9 @@ exports.createItem = async (req, res) => {
 
 exports.editItem = async (req, res) => {
     try {
-    let id = req.body.item_id;
-    var images = JSON.parse(req.body.images);
-    var sizes = JSON.parse(req.body.sizes);
+    let id = req.body._id;
+    var images = req.body.images;
+    var sizes = req.body.sizes[0].split(",");
     const itemData = {
         item_id: req.body.item_id,
         name:  req.body.name,
@@ -59,9 +59,8 @@ exports.editItem = async (req, res) => {
         description: req.body.description,
         discount: req.body.discount,
     };  
-    const item = await Item.findOne({ item_id: id })
-    item.updateData(itemData)
-    return res.status(200).json(item);
+    const item = await Item.findByIdAndUpdate(id,itemData)
+    return res.status(200).json(itemData);
     } catch (err) {
     console.log(err);
     return res.status(500).json(err);
@@ -70,8 +69,14 @@ exports.editItem = async (req, res) => {
 
 exports.removeItem = async (req, res) => {
     try {
-    let id = req.body.item_id;
-    await Item.deleteOne({ item_id: id })
+    let id = req.body._id;
+    await Item.findByIdAndRemove(id,(err,docs)=>{
+      if (err) {
+        console.log(err)
+      } else {
+        console.log(docs)
+      }
+    })
     return res.status(200).json({ msg: "Xoa item thanh cong" });
     } catch (err) {
     console.log(err);

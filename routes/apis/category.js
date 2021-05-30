@@ -5,7 +5,6 @@ const categoryController = require("../../controllers/category.js");
 
 router.get('/categories', categoryController.getAllCategory);
 
-
 // CREATE CAT
 
 router.post("/category", categoryController.createCategory);

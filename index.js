@@ -20,6 +20,9 @@ app.use(indexRoutes);
 app.get('/static/images/:name',function(req,res) {
   res.sendFile(path.join(__dirname, './resources/images/'+req.params.name))
 })
+app.get('/static/contents/:name',function(req,res) {
+  res.sendFile(path.join(__dirname, './resources/item-images/'+req.params.name))
+})
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, '../frontend/dist/frontend'))
 })
