@@ -7,17 +7,17 @@ exports.verifyUploadFiles = async (req, res) => {
       await upload(req, res);
   
       if (req.files.length <= 0) {
-        return res.send(`Bạn phải chọn ít nhất 1 file.`);
+        return res.status(500).json({msg:`Bạn phải chọn ít nhất 1 file.`})
       }
   
-      return res.send(`Đã tải lên: ${req.files.length} files`);
+      return res.status(200).json({msg:`Đã tải lên: ${req.files.length} files`});
     } catch (error) {
       console.log(error);
   
       if (error.code === "LIMIT_UNEXPECTED_FILE") {
-        return res.send("Quá nhiều files để upload!");
+        return res.status(500).json({msg:"Quá nhiều files để upload!"})
       }
-      return res.send(`Xảy ra lỗi khi đang tải lên nhiều files: ${error}`);
+      return res.status(500).json({msg:`Xảy ra lỗi khi đang tải lên nhiều files: ${error}`});
     }
   };
 
