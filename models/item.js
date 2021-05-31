@@ -9,6 +9,7 @@ const itemSchema = new mongoose.Schema(
     sizes: {type: [String]},
     description: {type: String, required: true},
     discount: {type: Number},
+    instock: {type: String, required: false}
   },
   {
     collection: "items",
@@ -22,6 +23,7 @@ itemSchema.methods.updateData = function (data) {
     this.sizes = data.sizes;
     this.description = data.description;
     this.discount = data.discount;
+    this.instock = data.instock;
     this.save()
 }
 module.exports = mongoose.model("Item", itemSchema);

@@ -4,11 +4,12 @@ const Category = require("../models/category.js")
 exports.getAllCategory = async (req,res) => {
     try {
         var allCategory = await Category.find()
-        .populate({
+        if (allCategory.length !== 0) {
+          allCategory = await Category.find().populate({
             path:"children",
-
             populate: { path: 'item' }
-        })
+          })
+        }
         return res.status(200).json(allCategory);
         } catch (err) {
         console.log(err);
@@ -34,7 +35,7 @@ exports.createCategory = async (req, res) => {
   
   exports.deleteCategory = async (req, res) => {
     try {
-    let catID = JSON.parse(req.body.category)._id
+    let catID = req.body.category._id
     await Category.findByIdAndRemove(catID,(err,docs)=>{
       if (err) {
         console.log(err);
@@ -62,8 +63,8 @@ exports.createCategory = async (req, res) => {
   
   exports.createSubCategoryInCategory = async (req, res) => {
     try {
-      let catID = JSON.parse(req.body.category)._id;
-      let subCatName = JSON.parse(req.body.subCategory).name;
+      let catID = req.body.category._id;
+      let subCatName = req.body.subCategory.name;
       const subCategory = new SubCategory({
         name: subCatName,
         item: []
@@ -84,8 +85,8 @@ exports.createCategory = async (req, res) => {
   
   exports.deleteSubCategory = async (req, res) => {
     try {
-      let catID = JSON.parse(req.body.category)._id;
-      let subCatID = JSON.parse(req.body.subCategory)._id;
+      let catID = req.body.category._id;
+      let subCatID = req.body.subCategory._id;
       await Category.findById(catID,(err, docs) => {
         const subCats = docs.children
         const subCat = subCats.find(sub => sub == subCatID)
@@ -111,8 +112,8 @@ exports.createCategory = async (req, res) => {
   
   exports.updateSubCategory = async (req, res) => {
     try {
-      let subCatID = JSON.parse(req.body.subCategory)._id;
-      let items = JSON.parse(req.body.items);
+      let subCatID = req.body.subCategory._id;
+      let items = req.body.items;
       await SubCategory.findById(subCatID,(err, docs) => {
           console.log(docs)
         docs.item = items;

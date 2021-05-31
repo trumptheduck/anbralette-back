@@ -34,6 +34,7 @@ exports.createItem = async (req, res) => {
             sizes: sizes,
             description: req.body.description,
             discount: req.body.discount,
+            instock: req.body.instock,
         });
   
       const createdItem = await item.save();
@@ -58,6 +59,7 @@ exports.editItem = async (req, res) => {
         sizes: sizes,
         description: req.body.description,
         discount: req.body.discount,
+        instock: req.body.instock,
     };  
     const item = await Item.findByIdAndUpdate(id,itemData)
     return res.status(200).json(itemData);

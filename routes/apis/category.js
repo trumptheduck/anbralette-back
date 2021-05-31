@@ -15,11 +15,11 @@ router.post("/subcategory", categoryController.createSubCategoryInCategory);
 
 // REMOVE CAT
 
-router.delete("/category", categoryController.deleteCategory);
+router.post("/category/remove", categoryController.deleteCategory);
 
 // REMOVE SUBCAT
 
-router.delete("/subcategory", categoryController.deleteSubCategory);
+router.post("/subcategory/remove", categoryController.deleteSubCategory);
 
 // UPDATE SUBCAT
 
