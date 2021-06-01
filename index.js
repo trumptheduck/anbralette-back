@@ -6,6 +6,7 @@ const httpPort = 80;
 const mongoose = require('mongoose');
 const indexRoutes = require("./routes/index.js")
 const cors = require("cors")
+const fs = require("fs")
 
 
 mongoose.connect('mongodb+srv://admin:admin@datacluster.xjitt.mongodb.net/anbralette?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
@@ -21,7 +22,11 @@ app.get('/static/images/:name',function(req,res) {
   res.sendFile(path.join(__dirname, './resources/images/'+req.params.name))
 })
 app.get('/static/contents/:name',function(req,res) {
-  res.sendFile(path.join(__dirname, './resources/item-images/'+req.params.name))
+  if (fs.existsSync(path.join(__dirname, './resources/item-images/'+req.params.name))) {
+    res.sendFile(path.join(__dirname, './resources/item-images/'+req.params.name))
+  } else {
+    res.sendFile(path.join(__dirname, './resources/images/nophoto.jpg'))
+  }
 })
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, '../frontend/dist/frontend'))
