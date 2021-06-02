@@ -50,7 +50,11 @@ exports.editItem = async (req, res) => {
     try {
     let id = req.body._id;
     var images = req.body.images;
-    var sizes = req.body.sizes.split(",");
+    if (req.body.sizes.search(",") !== -1) {
+      var sizes = req.body.sizes.split(",");
+    } else {
+      var sizes = req.body.sizes
+    }
     const itemData = {
         item_id: req.body.item_id,
         name:  req.body.name,
