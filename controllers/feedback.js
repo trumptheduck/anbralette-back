@@ -5,7 +5,6 @@ exports.addFeedback = async (req, res) => {
         
     const feedback = new Feedback({
       image: req.body.image,
-      item: req.body.item
     })
     const savedFeedback = await feedback.save()
     return res.status(200).json(savedFeedback);
