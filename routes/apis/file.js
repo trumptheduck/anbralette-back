@@ -3,7 +3,7 @@ const uploadMiddleware = require("../../middlewares/upload.js")
 const router = require("express").Router();
 const verifyMiddleware = require('../../middlewares/verify.js')
 
-router.post('/files',verifyMiddleware, fileController.verifyUploadFiles)
+router.post('/files', fileController.verifyUploadFiles)
 
 router.get('/files',verifyMiddleware, fileController.getAllFilePath)
 
