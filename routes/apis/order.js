@@ -10,7 +10,7 @@ router.post('/coupon', verifyMiddleware,orderController.addCoupon);
 
 router.post('/coupon/delete', verifyMiddleware,orderController.deleteCoupon);
 
-router.get('/orders',verifyMiddleware,orderController.getOrders);
+router.get('/orders',orderController.getOrders);
 
 router.post('/order/get', orderController.getOrderById);
 
